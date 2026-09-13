@@ -32,7 +32,7 @@ export default function SignupPage() {
         </div>
 
         {/* Card */}
-        <div className="mt-7 rounded-xl border border-slate-200 bg-white p-6 shadow-xs sm:p-7">
+        <div className="mt-7 rounded-xl border border-slate-200 bg-white dark:bg-slate-800 p-6 shadow-xs sm:p-7">
           <SignupForm />
         </div>
 

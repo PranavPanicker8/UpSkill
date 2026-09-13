@@ -310,3 +310,49 @@ export async function deleteResource(_: ActionResult, formData: FormData): Promi
   revalidatePath("/dashboard", "layout");
   return { success: "Resource deleted." };
 }
+
+export async function toggleRoadmapUpvote(roadmapId: string) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { error: "You must be logged in to upvote." };
+  }
+
+  const { data: existing } = await supabase
+    .from("roadmap_upvotes")
+    .select("roadmap_id")
+    .eq("roadmap_id", roadmapId)
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  if (existing) {
+    const { error } = await supabase
+      .from("roadmap_upvotes")
+      .delete()
+      .eq("roadmap_id", roadmapId)
+      .eq("user_id", user.id);
+
+    if (error) {
+      return { error: error.message };
+    }
+
+    return { upvoted: false };
+  }
+
+  const { error } = await supabase
+    .from("roadmap_upvotes")
+    .insert({
+      roadmap_id: roadmapId,
+      user_id: user.id,
+    });
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { upvoted: true };
+}

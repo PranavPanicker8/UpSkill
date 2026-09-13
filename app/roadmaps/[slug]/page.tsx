@@ -7,6 +7,7 @@ import { TaskItemView } from "@/components/task-item-view";
 import { ActionForm } from "@/components/forms/action-form";
 import { followRoadmap, unfollowRoadmap } from "@/app/actions/roadmaps";
 import { RouteIndicator, type NodeState } from "@/components/route-indicator";
+import UpvoteButton from "@/components/upvote-button";
 
 export const dynamic = "force-dynamic";
 
@@ -149,6 +150,25 @@ export default async function RoadmapDetailPage({
   const completedCount = completedTaskIds.size;
   const progressPercent = percentage(completedCount, totalTasks);
 
+  const { count: upvoteCount } = await supabase
+  .from("roadmap_upvotes")
+  .select("roadmap_id", { count: "exact", head: true })
+  .eq("roadmap_id", roadmap.id);
+
+// Check whether the current user has upvoted
+let hasUpvoted = false;
+
+if (userId) {
+  const { data: upvoteRecord } = await supabase
+    .from("roadmap_upvotes")
+    .select("roadmap_id")
+    .eq("roadmap_id", roadmap.id)
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  hasUpvoted = Boolean(upvoteRecord);
+}
+
   const creator = Array.isArray(roadmap.profiles) ? roadmap.profiles[0] : roadmap.profiles;
   const creatorName = creator?.full_name || creator?.username || "Upskill Creator";
   const initial = creatorName[0]?.toUpperCase() || "U";
@@ -215,11 +235,12 @@ export default async function RoadmapDetailPage({
             {roadmap.description}
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 pt-5 text-xs text-slate-500">
+                    <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 pt-5 text-xs text-slate-500">
             <div className="flex items-center gap-2.5">
               <div className="font-mono-code flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 text-xs font-bold text-slate-700">
                 {initial}
               </div>
+
               <div>
                 <span className="text-slate-400">Curated by </span>
                 <strong className="text-slate-800">{creatorName}</strong>
@@ -228,9 +249,20 @@ export default async function RoadmapDetailPage({
 
             {roadmap.published_at && (
               <span className="font-mono-code text-[11px] text-slate-400">
-                Updated {new Date(roadmap.published_at).toLocaleDateString(undefined, { dateStyle: "medium" })}
+                Updated{" "}
+                {new Date(roadmap.published_at).toLocaleDateString(undefined, {
+                  dateStyle: "medium",
+                })}
               </span>
             )}
+          </div>
+
+          <div className="mt-5 flex justify-end">
+            <UpvoteButton
+              roadmapId={roadmap.id}
+              initialUpvoted={hasUpvoted}
+              initialCount={upvoteCount ?? 0}
+            />
           </div>
         </header>
 

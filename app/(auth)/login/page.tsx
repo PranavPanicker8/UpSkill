@@ -38,7 +38,7 @@ export default async function LoginPage({
         </div>
 
         {/* Card */}
-        <div className="mt-7 rounded-xl border border-slate-200 bg-white p-6 shadow-xs sm:p-7">
+        <div className="mt-7 rounded-xl border border-slate-200 bg-white dark:bg-slate-800 p-6 shadow-xs sm:p-7">
           {error && (
             <div className="mb-4 rounded-lg border border-rose-200 bg-rose-50 p-3 text-xs text-rose-700" role="alert">
               {error}
