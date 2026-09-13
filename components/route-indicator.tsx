@@ -29,9 +29,9 @@ export function RouteIndicator({
     if (state === "complete") {
       return (
         <span
-          className={`inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-800 ${className}`}
+          className={`inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-800 dark:border-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400 ${className}`}
         >
-          <span className="flex h-3 w-3 items-center justify-center rounded-full bg-emerald-600 text-white">
+          <span className="flex h-3 w-3 items-center justify-center rounded-full bg-emerald-600 text-white dark:bg-emerald-500">
             <svg className="h-2 w-2" viewBox="0 0 20 20" fill="currentColor">
               <path
                 fillRule="evenodd"
@@ -48,11 +48,11 @@ export function RouteIndicator({
     if (state === "current") {
       return (
         <span
-          className={`inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-800 ${className}`}
+          className={`inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-800 dark:border-amber-800 dark:bg-amber-900/30 dark:text-amber-400 ${className}`}
         >
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75 dark:bg-amber-500" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500 dark:bg-amber-400" />
           </span>
           <span>{label || "In Progress"}</span>
         </span>
@@ -62,9 +62,9 @@ export function RouteIndicator({
     // Locked
     return (
       <span
-        className={`inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-500 ${className}`}
+        className={`inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 ${className}`}
       >
-        <svg className="h-2.5 w-2.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="h-2.5 w-2.5 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"

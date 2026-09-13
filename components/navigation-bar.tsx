@@ -1,9 +1,11 @@
-"use client";
+﻿"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "@/app/actions/auth";
+
+type Theme = "light" | "dark";
 
 export function RouteNodeBrandMark({ className = "h-5 w-5" }: { className?: string }) {
   return (
@@ -36,7 +38,25 @@ export function RouteNodeBrandMark({ className = "h-5 w-5" }: { className?: stri
 
 export function NavigationBar({ signedIn }: { signedIn: boolean }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true);
+    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+    setTheme(initialTheme);
+    document.documentElement.classList.toggle("dark", initialTheme === "dark");
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.classList.toggle("dark", newTheme === "dark");
+  };
 
   const isCurrent = (path: string) => {
     if (path === "/" && pathname === "/") return true;
@@ -45,14 +65,14 @@ export function NavigationBar({ signedIn }: { signedIn: boolean }) {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200/90 bg-white/95 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-slate-200/90 bg-white/95 backdrop-blur-md dark:border-slate-700/90 dark:bg-slate-900/95">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
         {/* Brand Logo with Route-Node Brand Mark */}
         <Link href="/" className="group flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-indigo-100 bg-indigo-50/70 shadow-2xs transition-transform group-hover:scale-105">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-indigo-100 bg-indigo-50/70 shadow-2xs transition-transform group-hover:scale-105 dark:border-indigo-900/50 dark:bg-indigo-950/30">
             <RouteNodeBrandMark className="h-5 w-5" />
           </div>
-          <span className="font-serif-heading text-lg font-bold tracking-tight text-slate-900">
+          <span className="font-serif-heading text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100">
             Upskill
           </span>
         </Link>
@@ -63,8 +83,8 @@ export function NavigationBar({ signedIn }: { signedIn: boolean }) {
             href="/roadmaps"
             className={`rounded-lg px-3 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors ${
               isCurrent("/roadmaps")
-                ? "bg-slate-100 text-slate-900"
-                : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                ? "bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100"
+                : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
             }`}
           >
             Explore Paths
@@ -76,17 +96,30 @@ export function NavigationBar({ signedIn }: { signedIn: boolean }) {
                 href="/dashboard"
                 className={`rounded-lg px-3 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors ${
                   isCurrent("/dashboard")
-                    ? "bg-slate-100 text-slate-900"
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    ? "bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100"
+                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
                 }`}
               >
                 My Learning
               </Link>
-              <div className="mx-2 h-4 w-px bg-slate-200" />
+              <div className="mx-2 h-4 w-px bg-slate-200 dark:bg-slate-700" />
+              <button
+                onClick={toggleTheme}
+                type="button"
+                className="inline-flex items-center justify-center rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200 transition-colors"
+                aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
+                title={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
+              >
+                {mounted && (
+                  <span className="text-lg" aria-hidden="true">
+                    {theme === "light" ? "☾" : "☀"}
+                  </span>
+                )}
+              </button>
               <form action={signOut}>
                 <button
                   type="submit"
-                  className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 shadow-2xs transition-colors hover:bg-slate-50 hover:text-slate-900"
+                  className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 shadow-2xs transition-colors hover:bg-slate-50 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-slate-100"
                 >
                   Sign out
                 </button>
@@ -94,16 +127,29 @@ export function NavigationBar({ signedIn }: { signedIn: boolean }) {
             </>
           ) : (
             <>
-              <div className="mx-2 h-4 w-px bg-slate-200" />
+              <div className="mx-2 h-4 w-px bg-slate-200 dark:bg-slate-700" />
+              <button
+                onClick={toggleTheme}
+                type="button"
+                className="inline-flex items-center justify-center rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200 transition-colors"
+                aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
+                title={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
+              >
+                {mounted && (
+                  <span className="text-lg" aria-hidden="true">
+                    {theme === "light" ? "☾" : "☀"}
+                  </span>
+                )}
+              </button>
               <Link
                 href="/login"
-                className="rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900"
+                className="rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
               >
                 Sign in
               </Link>
               <Link
                 href="/signup"
-                className="rounded-lg bg-indigo-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs transition-colors hover:bg-indigo-700"
+                className="rounded-lg bg-indigo-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs transition-colors hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600"
               >
                 Get started free
               </Link>
@@ -116,7 +162,7 @@ export function NavigationBar({ signedIn }: { signedIn: boolean }) {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             type="button"
-            className="inline-flex items-center justify-center rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+            className="inline-flex items-center justify-center rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? (
@@ -134,12 +180,12 @@ export function NavigationBar({ signedIn }: { signedIn: boolean }) {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="border-t border-slate-200 bg-white px-4 pt-3 pb-5 sm:hidden space-y-2">
+        <div className="border-t border-slate-200 bg-white px-4 pt-3 pb-5 sm:hidden space-y-2 dark:border-slate-700 dark:bg-slate-900">
           <Link
             href="/roadmaps"
             onClick={() => setMobileMenuOpen(false)}
             className={`block rounded-lg px-3 py-2 text-sm font-medium ${
-              isCurrent("/roadmaps") ? "bg-slate-100 text-slate-900 font-semibold" : "text-slate-700 hover:bg-slate-50"
+              isCurrent("/roadmaps") ? "bg-slate-100 text-slate-900 font-semibold dark:bg-slate-800 dark:text-slate-100" : "text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
             }`}
           >
             Explore Paths
@@ -151,16 +197,25 @@ export function NavigationBar({ signedIn }: { signedIn: boolean }) {
                 href="/dashboard"
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block rounded-lg px-3 py-2 text-sm font-medium ${
-                  isCurrent("/dashboard") ? "bg-slate-100 text-slate-900 font-semibold" : "text-slate-700 hover:bg-slate-50"
+                  isCurrent("/dashboard") ? "bg-slate-100 text-slate-900 font-semibold dark:bg-slate-800 dark:text-slate-100" : "text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
                 }`}
               >
                 My Learning
               </Link>
               <div className="pt-2">
+                <button
+                  onClick={toggleTheme}
+                  type="button"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-center text-sm font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+                >
+                  {theme === "light" ? "☾ Switch to dark mode" : "☀ Switch to light mode"}
+                </button>
+              </div>
+              <div className="pt-2">
                 <form action={signOut}>
                   <button
                     type="submit"
-                    className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-center text-sm font-medium text-slate-700 hover:bg-slate-100"
+                    className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-center text-sm font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
                   >
                     Sign out
                   </button>
@@ -169,17 +224,24 @@ export function NavigationBar({ signedIn }: { signedIn: boolean }) {
             </>
           ) : (
             <div className="pt-2 space-y-2">
+              <button
+                onClick={toggleTheme}
+                type="button"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-center text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+              >
+                {theme === "light" ? "☾ Switch to dark mode" : "☀ Switch to light mode"}
+              </button>
               <Link
                 href="/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-center text-sm font-medium text-slate-700 hover:bg-slate-50"
+                className="block w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-center text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
               >
                 Sign in
               </Link>
               <Link
                 href="/signup"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block w-full rounded-lg bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-700"
+                className="block w-full rounded-lg bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600"
               >
                 Get started free
               </Link>
@@ -190,3 +252,4 @@ export function NavigationBar({ signedIn }: { signedIn: boolean }) {
     </header>
   );
 }
+

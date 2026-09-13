@@ -131,22 +131,22 @@ export default async function DashboardPage() {
   const createdRoadmaps = createdRoadmapsData || [];
 
   return (
-    <main className="min-h-screen bg-[#fafbfc] py-8 sm:py-12">
+    <main className="min-h-screen bg-[#fafbfc] py-8 sm:py-12 dark:bg-[#0f1016]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Student Welcome & Statistics Header */}
-        <div className="rounded-xl border border-slate-200/90 bg-white p-6 shadow-xs sm:p-8">
+        <div className="rounded-xl border border-slate-200/90 bg-white p-6 shadow-xs sm:p-8 dark:border-slate-700/90 dark:bg-slate-800">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-800">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-800 dark:border-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse dark:bg-emerald-400" />
                 <span>Student Learning Space</span>
               </div>
 
-              <h1 className="font-serif-heading mt-2.5 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+              <h1 className="font-serif-heading mt-2.5 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl dark:text-slate-100">
                 Welcome back, {displayName}
               </h1>
 
-              <p className="mt-1 text-xs text-slate-600 sm:text-sm">
+              <p className="mt-1 text-xs text-slate-600 sm:text-sm dark:text-slate-400">
                 {followedRoadmaps.length > 0
                   ? `You have ${followedRoadmaps.length} active learning ${
                       followedRoadmaps.length === 1 ? "path" : "paths"
@@ -158,7 +158,7 @@ export default async function DashboardPage() {
             <div className="flex flex-wrap items-center gap-2.5">
               <Link
                 href="/roadmaps"
-                className="rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-colors"
+                className="rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 transition-colors dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
               >
                 Browse Catalog
               </Link>
@@ -167,22 +167,22 @@ export default async function DashboardPage() {
           </div>
 
           {/* Quick Metrics Bar */}
-          <div className="mt-6 grid grid-cols-2 gap-3 border-t border-slate-100 pt-5 sm:grid-cols-3">
-            <div className="rounded-lg border border-slate-100 bg-slate-50/50 p-3">
-              <span className="text-[11px] font-medium text-slate-500">Active Paths</span>
-              <p className="font-mono-code mt-0.5 text-xl font-bold text-indigo-600">
+          <div className="mt-6 grid grid-cols-2 gap-3 border-t border-slate-100 pt-5 sm:grid-cols-3 dark:border-slate-700">
+            <div className="rounded-lg border border-slate-100 bg-slate-50/50 p-3 dark:border-slate-700 dark:bg-slate-700/50">
+              <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Active Paths</span>
+              <p className="font-mono-code mt-0.5 text-xl font-bold text-indigo-600 dark:text-indigo-400">
                 {followedRoadmaps.length}
               </p>
             </div>
-            <div className="rounded-lg border border-slate-100 bg-slate-50/50 p-3">
-              <span className="text-[11px] font-medium text-slate-500">Tasks Completed</span>
-              <p className="font-mono-code mt-0.5 text-xl font-bold text-emerald-600">
+            <div className="rounded-lg border border-slate-100 bg-slate-50/50 p-3 dark:border-slate-700 dark:bg-slate-700/50">
+              <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Tasks Completed</span>
+              <p className="font-mono-code mt-0.5 text-xl font-bold text-emerald-600 dark:text-emerald-400">
                 {totalOverallCompleted}
               </p>
             </div>
-            <div className="col-span-2 sm:col-span-1 rounded-lg border border-slate-100 bg-slate-50/50 p-3">
-              <span className="text-[11px] font-medium text-slate-500">Authored Paths</span>
-              <p className="font-mono-code mt-0.5 text-xl font-bold text-slate-800">
+            <div className="col-span-2 sm:col-span-1 rounded-lg border border-slate-100 bg-slate-50/50 p-3 dark:border-slate-700 dark:bg-slate-700/50">
+              <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Authored Paths</span>
+              <p className="font-mono-code mt-0.5 text-xl font-bold text-slate-800 dark:text-slate-300">
                 {createdRoadmaps.length}
               </p>
             </div>
@@ -191,19 +191,19 @@ export default async function DashboardPage() {
 
         {/* SECTION 1: MY LEARNING (STUDENT-FIRST DOMINANT AREA) */}
         <section className="mt-10">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+          <div className="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-700">
             <div>
-              <h2 className="font-serif-heading text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+              <h2 className="font-serif-heading text-xl font-bold tracking-tight text-slate-900 sm:text-2xl dark:text-slate-100">
                 My Learning Paths
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Continue your active milestones and review completed achievements.
               </p>
             </div>
             {followedRoadmaps.length > 0 && (
               <Link
                 href="/roadmaps"
-                className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition-colors"
+                className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition-colors dark:text-indigo-400 dark:hover:text-indigo-300"
               >
                 + Explore more paths
               </Link>
@@ -211,22 +211,22 @@ export default async function DashboardPage() {
           </div>
 
           {followedRoadmaps.length === 0 ? (
-            <div className="mt-5 rounded-xl border border-dashed border-slate-300 bg-white p-10 text-center sm:p-14">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+            <div className="mt-5 rounded-xl border border-dashed border-slate-300 bg-white p-10 text-center sm:p-14 dark:border-slate-600 dark:bg-slate-800">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400">
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                 </svg>
               </div>
-              <h3 className="font-serif-heading mt-3 text-base font-bold text-slate-900">
+              <h3 className="font-serif-heading mt-3 text-base font-bold text-slate-900 dark:text-slate-100">
                 You are not enrolled in any paths yet
               </h3>
-              <p className="mx-auto mt-1 max-w-sm text-xs text-slate-500">
+              <p className="mx-auto mt-1 max-w-sm text-xs text-slate-500 dark:text-slate-400">
                 Explore our catalog of milestone-driven developer paths to start tracking your learning.
               </p>
               <div className="mt-5">
                 <Link
                   href="/roadmaps"
-                  className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-slate-800 transition-colors"
+                  className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-slate-800 transition-colors dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
                 >
                   Explore Paths Catalog
                 </Link>
@@ -245,7 +245,7 @@ export default async function DashboardPage() {
                 return (
                   <div
                     key={roadmap.id}
-                    className="flex flex-col justify-between rounded-xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all hover:border-indigo-200 hover:shadow-sm"
+                    className="flex flex-col justify-between rounded-xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all hover:border-indigo-200 hover:shadow-sm dark:border-slate-700/90 dark:bg-slate-800 dark:hover:border-indigo-600"
                   >
                     <div>
                       {/* Waypoint State & Level */}
@@ -255,24 +255,24 @@ export default async function DashboardPage() {
                           variant="sm"
                           label={isFinished ? "Finished" : "Active"}
                         />
-                        <span className="font-mono-code text-[11px] text-slate-500">
+                        <span className="font-mono-code text-[11px] text-slate-500 dark:text-slate-400">
                           {formatDuration(roadmap.estimated_duration_minutes)}
                         </span>
                       </div>
 
-                      <h3 className="font-serif-heading mt-3 text-base font-bold text-slate-900 line-clamp-2">
+                      <h3 className="font-serif-heading mt-3 text-base font-bold text-slate-900 line-clamp-2 dark:text-slate-100">
                         {roadmap.title}
                       </h3>
 
-                      <p className="mt-1 text-xs text-slate-500">
+                      <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                         By {creator?.full_name || creator?.username || "Upskill"}
                       </p>
 
                       {/* Progress Bar & Trail */}
-                      <div className="mt-4 rounded-lg bg-slate-50/80 p-3 border border-slate-100">
-                        <div className="mb-1.5 flex items-center justify-between text-xs text-slate-600">
-                          <span className="text-[11px] font-medium text-slate-500">Progress</span>
-                          <span className="font-mono-code text-[11px] font-semibold text-slate-800">
+                      <div className="mt-4 rounded-lg bg-slate-50/80 p-3 border border-slate-100 dark:bg-slate-700/50 dark:border-slate-700">
+                        <div className="mb-1.5 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
+                          <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Progress</span>
+                          <span className="font-mono-code text-[11px] font-semibold text-slate-800 dark:text-slate-200">
                             {prog.completed}/{prog.total} tasks ({pct}%)
                           </span>
                         </div>
@@ -281,7 +281,7 @@ export default async function DashboardPage() {
                     </div>
 
                     {/* Card Actions */}
-                    <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3.5">
+                    <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3.5 dark:border-slate-700">
                       <CompactActionForm
                         action={unfollowRoadmap}
                         label="Leave"
@@ -293,7 +293,7 @@ export default async function DashboardPage() {
 
                       <Link
                         href={`/roadmaps/${roadmap.slug}`}
-                        className="rounded-lg bg-indigo-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-indigo-700 transition-colors"
+                        className="rounded-lg bg-indigo-600 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-indigo-700 transition-colors dark:bg-indigo-500 dark:hover:bg-indigo-600"
                       >
                         Continue Path →
                       </Link>
@@ -306,13 +306,13 @@ export default async function DashboardPage() {
         </section>
 
         {/* SECTION 2: CREATOR STUDIO (AUTHORED PATHS) */}
-        <section className="mt-14 border-t border-slate-200 pt-10">
+        <section className="mt-14 border-t border-slate-200 pt-10 dark:border-slate-700">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="font-serif-heading text-lg font-bold tracking-tight text-slate-900 sm:text-xl">
+              <h2 className="font-serif-heading text-lg font-bold tracking-tight text-slate-900 sm:text-xl dark:text-slate-100">
                 Creator Studio
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Curricula authored by you. Manage milestones, tasks, and publication status.
               </p>
             </div>
@@ -320,9 +320,9 @@ export default async function DashboardPage() {
           </div>
 
           {createdRoadmaps.length === 0 ? (
-            <div className="mt-4 rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center sm:p-10">
-              <p className="text-xs font-semibold text-slate-700">No authored paths yet.</p>
-              <p className="mt-0.5 text-xs text-slate-500">Share your technical expertise by structuring a curriculum.</p>
+            <div className="mt-4 rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center sm:p-10 dark:border-slate-600 dark:bg-slate-800">
+              <p className="text-xs font-semibold text-slate-700 dark:text-slate-300">No authored paths yet.</p>
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Share your technical expertise by structuring a curriculum.</p>
               <div className="mt-4">
                 <CreateRoadmapButton />
               </div>
@@ -340,28 +340,28 @@ export default async function DashboardPage() {
                 return (
                   <div
                     key={roadmap.id}
-                    className="flex flex-col justify-between gap-3 rounded-xl border border-slate-200/90 bg-white p-4 shadow-xs sm:flex-row sm:items-center sm:p-5"
+                    className="flex flex-col justify-between gap-3 rounded-xl border border-slate-200/90 bg-white p-4 shadow-xs sm:flex-row sm:items-center sm:p-5 dark:border-slate-700/90 dark:bg-slate-800"
                   >
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
                         <span
                           className={`rounded px-2 py-0.5 font-mono-code text-[10px] font-semibold uppercase tracking-wider ${
                             isPublished
-                              ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                              : "bg-amber-50 text-amber-800 border border-amber-200"
+                              ? "bg-emerald-50 text-emerald-800 border border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 dark:border-emerald-800"
+                              : "bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-800"
                           }`}
                         >
                           {isPublished ? "Published" : "Draft"}
                         </span>
-                        <span className="text-[11px] font-medium text-slate-500">
+                        <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">
                           {formatLevel(roadmap.level)}
                         </span>
-                        <span className="font-mono-code text-[11px] text-slate-400">
+                        <span className="font-mono-code text-[11px] text-slate-400 dark:text-slate-500">
                           {totalSections} milestones • {totalRoadmapTasks} tasks
                         </span>
                       </div>
 
-                      <h3 className="font-serif-heading mt-1 text-base font-bold text-slate-900 truncate">
+                      <h3 className="font-serif-heading mt-1 text-base font-bold text-slate-900 truncate dark:text-slate-100">
                         {roadmap.title}
                       </h3>
                     </div>
@@ -369,14 +369,14 @@ export default async function DashboardPage() {
                     <div className="flex flex-wrap items-center gap-2 self-start sm:self-center">
                       <Link
                         href={`/roadmaps/${roadmap.slug}`}
-                        className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50"
+                        className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
                       >
                         Preview
                       </Link>
 
                       <Link
                         href={`/dashboard/roadmaps/${roadmap.id}/edit`}
-                        className="rounded-lg bg-slate-900 px-3 py-1 text-xs font-semibold text-white shadow-xs hover:bg-slate-800 transition-colors"
+                        className="rounded-lg bg-slate-900 px-3 py-1 text-xs font-semibold text-white shadow-xs hover:bg-slate-800 transition-colors dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
                       >
                         Edit Curriculum
                       </Link>
