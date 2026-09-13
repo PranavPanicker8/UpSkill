@@ -58,7 +58,7 @@ export default async function RoadmapDetailPage({
       created_at,
       updated_at,
       published_at,
-      profiles (
+      profiles!creator_id (
         id,
         username,
         full_name,

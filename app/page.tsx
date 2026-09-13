@@ -17,7 +17,7 @@ export default async function HomePage() {
 
   const { data: featuredRoadmaps } = await supabase
     .from("roadmaps")
-    .select("id, title, slug, description, level, estimated_duration_minutes, status, created_at, profiles(username, full_name, avatar_url)")
+    .select("id, title, slug, description, level, estimated_duration_minutes, status, created_at, profiles!creator_id(username, full_name, avatar_url)")
     .eq("status", "published")
     .order("created_at", { ascending: false })
     .limit(6);

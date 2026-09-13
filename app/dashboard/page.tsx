@@ -49,7 +49,7 @@ export default async function DashboardPage() {
         level,
         estimated_duration_minutes,
         status,
-        profiles (
+        profiles!creator_id (
           username,
           full_name
         )
