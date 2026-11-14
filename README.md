@@ -57,12 +57,19 @@ follow their progress, complete tasks, and upvote useful Paths.
   Tech Stack
 
 Next.js 16 - Full-stack React framework
+
 React - User interface
+
 TypeScript - Type-safe development
+
 Tailwind CSS - Styling and responsive UI
+
 Supabase - PostgreSQL database and authentication
+
 PostgreSQL - Persistent application data
+
 Vercel - Production deployment
+
 pnpm - Package management
 
 ## Application Architecture
